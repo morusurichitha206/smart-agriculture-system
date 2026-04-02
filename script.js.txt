@@ -1,0 +1,24 @@
+// GET request
+fetch("http://localhost:8080/api/sensor")
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("data").innerHTML =
+            "Temperature: " + data.temperature + "°C<br>" +
+            "Moisture: " + data.moisture + "%";
+    });
+
+// POST request
+function sendData() {
+    fetch("http://localhost:8080/api/sensor", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            temperature: 30,
+            moisture: 60
+        })
+    })
+    .then(response => response.text())
+    .then(data => alert(data));
+}
