@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Agriculture Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Smart Agriculture System</h1>
+
+<div id="data">
+    <p>Loading sensor data...</p>
+</div>
+
+<button onclick="sendData()">Send Data</button>
+
+<script src="script.js"></script>
+
+</body>
+</html>
