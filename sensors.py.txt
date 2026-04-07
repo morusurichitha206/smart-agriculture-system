@@ -1,0 +1,19 @@
+import random
+import time
+import json
+
+def generate_sensor_readings():
+    """Simulates real-world farm sensors."""
+    return {
+        "soil_moisture": round(random.uniform(20.0, 80.0), 2),  # Percentage %
+        "temperature": round(random.uniform(15.0, 40.0), 2),   # Celsius °C
+        "humidity": round(random.uniform(30.0, 90.0), 2),      # Percentage %
+        "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
+    }
+
+# If run directly, it creates a local 'fake_data.json' file
+if __name__ == "__main__":
+    data = generate_sensor_readings()
+    with open("fake_data.json", "w") as f:
+        json.dump(data, f, indent=4)
+    print("Fake sensor data generated in 'fake_data.json'")
