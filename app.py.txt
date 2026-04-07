@@ -1,0 +1,32 @@
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+# In-memory storage to simulate a database
+agriculture_data = {
+    "soil_moisture": 45,
+    "temperature": 24.5,
+    "humidity": 60,
+    "status": "System Online"
+}
+
+@app.route('/data', methods=['GET'])
+def get_data():
+    """Returns the current sensor readings."""
+    return jsonify(agriculture_data), 200
+
+@app.route('/update', methods=['POST'])
+def update_data():
+    """Updates the sensor readings with data from the field."""
+    new_data = request.json
+    if not new_data:
+        return jsonify({"error": "No data provided"}), 400
+    
+    # Update our global dictionary
+    agriculture_data.update(new_data)
+    print(f"Update Received: {new_data}")
+    
+    return jsonify({"message": "Data uploaded successfully"}), 201
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
