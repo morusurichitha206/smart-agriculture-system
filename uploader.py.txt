@@ -1,0 +1,31 @@
+import requests
+import json
+import time
+
+API_URL = "http://127.0.0.1:5000"
+
+def upload_farm_data():
+    # 1. Read the 'fake' sensor data from our file
+    try:
+        with open("fake_data.json", "r") as f:
+            sensor_payload = json.load(f)
+    except FileNotFoundError:
+        print("Error: No sensor data file found. Run sensors.py first.")
+        return
+
+    # 2. POST: Upload data to the server
+    print(f"Sending data to server: {sensor_payload}")
+    post_response = requests.post(f"{API_URL}/update", json=sensor_payload)
+    
+    if post_response.status_code == 201:
+        print("POST Success:", post_response.json())
+    else:
+        print("POST Failed")
+
+    # 3. GET: Fetch the current state from the server to verify
+    time.sleep(1) # Short pause
+    get_response = requests.get(f"{API_URL}/data")
+    print("Current Server State (GET):", get_response.json())
+
+if __name__ == "__main__":
+    upload_farm_data()
